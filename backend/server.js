@@ -35,5 +35,7 @@ app.listen(PORT, ()=>{
     console.log('App running in port: '+PORT)
 })
 
-
+app.get('/',(req,res)=>{
+    res.send('backend is running')
+})
 
