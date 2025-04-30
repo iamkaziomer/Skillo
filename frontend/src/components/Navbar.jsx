@@ -1,28 +1,28 @@
 import React, { useState } from 'react'
 import { Menu, X } from 'lucide-react';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import useEffect from 'react'
 
 
 
 const Navbar = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const token = localStorage.getItem('token')
-  
+
 
   return (
     <div className="w-full flex items-center justify-between px-6 py-4 bg-white shadow-md fixed top-0 z-50">
-      <div className='text-2xl font-bold tracking-tight text-gray-800 cursor-pointer' onClick={()=>navigate('/')}>Skillo</div>
+      <div className='text-2xl font-bold tracking-tight text-gray-800 cursor-pointer' onClick={() => navigate('/')}>Skillo</div>
 
       {/* Desktop Links */}
       <div className='hidden md:flex gap-6 text-sm font-medium text-gray-700'>
-        <a className='hover:text-black transition cursor-pointer' onClick={()=>navigate('/')}>Home</a>
-        {!token&&<a className='hover:text-black transition cursor-pointer' onClick={()=>navigate('/login')}>Login</a>}
-        {token&&<a className='hover:text-black transition cursor-pointer' onClick={()=>navigate('/dashboard')}>Dashboard</a>}
-        <a className='hover:text-black transition cursor-pointer' onClick={()=>navigate('/about')}>About</a>
+        <a className='hover:text-black transition cursor-pointer' onClick={() => navigate('/')}>Home</a>
+        {!token && <a className='hover:text-black transition cursor-pointer' onClick={() => navigate('/login')}>Login</a>}
+        {token && <a className='hover:text-black transition cursor-pointer' onClick={() => navigate('/dashboard')}>Dashboard</a>}
+        <a className='hover:text-black transition cursor-pointer' onClick={() => navigate('/about')}>About</a>
       </div>
 
       {/* Hamburger */}
@@ -45,9 +45,9 @@ const Navbar = () => {
               </button>
             </div>
 
-            <a className='text-gray-700 hover:text-black text-base cursor-pointer '>Home</a>
-            <a className='text-gray-700 hover:text-black text-base'>Login</a>
-            <a className='text-gray-700 hover:text-black text-base' onClick={()=>navigate('/dashboard')}>Dashboard</a>
+            <a className='text-gray-700 hover:text-black text-base cursor-pointer ' onClick={() => navigate('/')} >Home</a>
+            <a className='text-gray-700 hover:text-black text-base' onClick={() => navigate('/login')}>Login</a>
+            <a className='text-gray-700 hover:text-black text-base' onClick={() => navigate('/dashboard')}>Dashboard</a>
             <a className='text-gray-700 hover:text-black text-base'>About</a>
           </div>
         </div>
