@@ -11,7 +11,7 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:5200/api/skill/get", {
+      const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/skill/get`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -29,7 +29,7 @@ const Dashboard = () => {
   const AddSkill = async (title, description, learntFrom, resources) => {
     try {
       const response = await axios.post(
-        "http://localhost:5200/api/skill/create",
+        `${import.meta.env.VITE_API_BASE_URL}/api/skill/create`,
         {
           title: title,
           description: description,

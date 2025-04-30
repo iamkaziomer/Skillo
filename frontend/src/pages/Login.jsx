@@ -16,7 +16,7 @@ const Login = () => {
 
   const handleLogin = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:5200/api/user/login', {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/user/login`, {
         email,
         password
       })
@@ -35,7 +35,7 @@ const Login = () => {
 
   const handleRegister = async (name,email,password,branch,semester) => {
     try {
-      const response = await axios.post('http://localhost:5200/api/user/register', {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/user/register`, {
         name:name,
         email:email,
         password:password,

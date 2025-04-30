@@ -8,7 +8,6 @@ export default function Home() {
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState(null);
-
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
@@ -18,7 +17,7 @@ export default function Home() {
           throw new Error('No token found, please login');
         }
 
-        const response = await axios.get('http://localhost:5200/api/home', {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/home`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

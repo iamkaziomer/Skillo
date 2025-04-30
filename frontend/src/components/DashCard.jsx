@@ -61,7 +61,7 @@ const DashCard = ({
   const EditSkill = async (id, updatedData) => {
     try {
       const response = await axios.put(
-        `http://localhost:5200/api/skill/${id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/skill/${id}`,
         updatedData,
         {
           headers: {
@@ -79,7 +79,7 @@ const DashCard = ({
   const deleteSkill = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5200/api/skill/${id}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/skill/${id}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -94,7 +94,7 @@ const DashCard = ({
 
   const EditBio = async (bio)=>{
     try {
-      const response = await axios.put('http://localhost:5200/api/user/editBio',{
+      const response = await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/user/editBio`,{
         bio:bio
       },
       {
