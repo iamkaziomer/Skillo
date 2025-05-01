@@ -29,7 +29,7 @@ const createSkill = async (req, res) => {
       title: title.trim(),
       description: description.trim(),
       ...(learntFrom ? { learntFrom: learntFrom.trim() } : {}),
-      ...(validResources.length > 0 ? { resources: validResources } : {}),
+      resources: validResources
     });
 
     await skill.save();
@@ -62,31 +62,30 @@ const getUserSkills = async (req, res) => {
     try {
       const skillId = req.params.id;
       const userId = req.user.id;
-  
-      let { title, description, learntFrom, resources } = req.body;
+      const { title, description, learntFrom, resources } = req.body;
   
       const updates = {};
       const urlRegex = /^(https?:\/\/)[^\s/$.?#].[^\s]*$/i;
   
-      if (title && typeof title === "string" && title.trim() !== "") {
+      // Optional fields - update only if provided
+      if (typeof title === "string" && title.trim() !== "") {
         updates.title = title.trim();
       }
   
-      if (description && typeof description === "string" && description.trim() !== "") {
+      if (typeof description === "string" && description.trim() !== "") {
         updates.description = description.trim();
       }
   
-      if (learntFrom && typeof learntFrom === "string" && learntFrom.trim() !== "") {
+      if (typeof learntFrom === "string" && learntFrom.trim() !== "") {
         updates.learntFrom = learntFrom.trim();
       }
   
+      // Always handle resources if it's an array (even empty)
       if (Array.isArray(resources)) {
-        const validResources = resources.filter(
-          (r) => typeof r === "string" && r.trim() !== "" && urlRegex.test(r.trim())
-        );
-        if (validResources.length > 0) {
-          updates.resources = validResources;
-        }
+        const validResources = resources
+          .filter(r => typeof r === "string" && urlRegex.test(r.trim()))
+          .map(r => r.trim());
+        updates.resources = validResources; // empty array is valid and will overwrite
       }
   
       const skill = await Skill.findOneAndUpdate(
@@ -96,16 +95,15 @@ const getUserSkills = async (req, res) => {
       );
   
       if (!skill) {
-        return res.status(404).json({ success: false, message: 'Skill not found or unauthorized' });
+        return res.status(404).json({ success: false, message: "Skill not found or unauthorized" });
       }
   
-      res.status(200).json({ success: true, message: 'Skill updated', skill });
-  
+      res.status(200).json({ success: true, message: "Skill updated", skill });
     } catch (error) {
+      console.error("Skill update failed:", error);
       res.status(500).json({ success: false, message: error.message });
     }
   };
-  
   
 
 const deleteSkill = async (req, res) => {
