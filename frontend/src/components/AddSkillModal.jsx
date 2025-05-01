@@ -7,7 +7,6 @@ const AddSkillModal = ({ addFunction, setAddSkillModal,buttonStatus }) => {
   const [resource, setResource] = useState("");
   const [skillResources, setSkillResources] = useState([""]);
   const [dataError, setDataError] = useState(false)
-  const [buttonStatus, setButtonStatus] = useState(false)
 
   const handleAddResource = (resource) => {
 
