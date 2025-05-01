@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [addSkillModal, setAddSkillModal] = useState(false);
   const [editSkillModal, setEditSkillModal] = useState(false);
   const [buttonStatus, setButtonStatus] = useState(false)
-
+  
 
   const fetchData = async () => {
     try {
