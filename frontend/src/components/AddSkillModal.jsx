@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 
-const AddSkillModal = ({ addFunction, setAddSkillModal }) => {
+const AddSkillModal = ({ addFunction, setAddSkillModal,buttonStatus }) => {
   const [skillName, setSkillName] = useState("");
   const [description, setDescription] = useState("");
   const [learntFrom, setLearntFrom] = useState("");
   const [resource, setResource] = useState("");
   const [skillResources, setSkillResources] = useState([""]);
   const [dataError, setDataError] = useState(false)
+  const [buttonStatus, setButtonStatus] = useState(false)
 
   const handleAddResource = (resource) => {
 
@@ -67,8 +68,8 @@ const AddSkillModal = ({ addFunction, setAddSkillModal }) => {
         </div>
       </div>
 
-      <button
-        onClick={() =>
+      <button disable={buttonStatus}
+        onClick={() => 
           addFunction(skillName, description, learntFrom, skillResources)
         }
         className="mt-4 bg-gradient-to-tr from-gray-100 to-sky-100 text-gray-800 px-6 py-3 rounded-xl border border-gray-300 hover:shadow-md hover:scale-[1.02] transition-all duration-300"

@@ -8,6 +8,8 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
   const [addSkillModal, setAddSkillModal] = useState(false);
   const [editSkillModal, setEditSkillModal] = useState(false);
+  const [buttonStatus, setButtonStatus] = useState(false)
+
 
   const fetchData = async () => {
     try {
@@ -44,6 +46,7 @@ const Dashboard = () => {
       );
       setAddSkillModal(false);
       console.log("created successfully", response.data);
+      setButtonStatus(true)
       await fetchData();
     } catch (error) {
       console.log("error adding skill", error);
@@ -76,6 +79,7 @@ const Dashboard = () => {
             <AddSkillModal
               addFunction={AddSkill}
               setAddSkillModal={setAddSkillModal}
+              buttonStatus={buttonStatus}
             />
           </div>
         )}

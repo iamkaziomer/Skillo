@@ -12,6 +12,10 @@ const Navbar = () => {
 
   const token = localStorage.getItem('token')
 
+  const handleRedirect = (address)=>{
+    navigate(`/${address}`)
+  }
+
 
   return (
     <div className="w-full flex items-center justify-between px-6 py-4 bg-white shadow-md fixed top-0 z-50">
@@ -48,7 +52,7 @@ const Navbar = () => {
             <a className='text-gray-700 hover:text-black text-base cursor-pointer ' onClick={() => navigate('/')} >Home</a>
             <a className='text-gray-700 hover:text-black text-base' onClick={() => navigate('/login')}>Login</a>
             <a className='text-gray-700 hover:text-black text-base' onClick={() => navigate('/dashboard')}>Dashboard</a>
-            <a className='text-gray-700 hover:text-black text-base'>About</a>
+            <a className='text-gray-700 hover:text-black text-base'onClick={()=>navigate('/about')}>About</a>
           </div>
         </div>
       )}
