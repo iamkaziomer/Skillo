@@ -79,7 +79,7 @@ const Dashboard = () => {
             <AddSkillModal
               addFunction={AddSkill}
               setAddSkillModal={setAddSkillModal}
-              buttonStatus={buttonStatus}
+              buttonStatus={buttonStatus} setButtonStatus={setButtonStatus}
             />
           </div>
         )}
