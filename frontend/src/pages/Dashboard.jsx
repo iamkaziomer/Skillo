@@ -30,6 +30,7 @@ const Dashboard = () => {
 
   const AddSkill = async (title, description, learntFrom, resources) => {
     try {
+      setButtonStatus(true)
       const response = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/api/skill/create`,
         {
@@ -46,10 +47,13 @@ const Dashboard = () => {
       );
       setAddSkillModal(false);
       console.log("created successfully", response.data);
-      setButtonStatus(true)
       await fetchData();
     } catch (error) {
       console.log("error adding skill", error);
+    }
+    finally{
+        setButtonStatus(false)
+      
     }
   };
 

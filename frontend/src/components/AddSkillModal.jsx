@@ -67,11 +67,11 @@ const AddSkillModal = ({ addFunction, setAddSkillModal,buttonStatus }) => {
         </div>
       </div>
 
-      <button disable={buttonStatus}
+      <button disabled={buttonStatus}
         onClick={() => 
           addFunction(skillName, description, learntFrom, skillResources)
         }
-        className="mt-4 bg-gradient-to-tr from-gray-100 to-sky-100 text-gray-800 px-6 py-3 rounded-xl border border-gray-300 hover:shadow-md hover:scale-[1.02] transition-all duration-300"
+        className="bg-red-600"
       >
         Submit Skill
       </button>
