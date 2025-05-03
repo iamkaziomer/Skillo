@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/register", register);
 router.post("/login", login);
-router.post("/addbio",protect,addBio)
+router.post("/addBio",protect,addBio)
 router.put("/editBio",protect,editBio)
 
 module.exports = router;
