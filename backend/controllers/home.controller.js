@@ -19,7 +19,7 @@ const getAllUserCards = async (req, res) => {
     console.log('Current User ID:', currentUserId); // Debugging log for userId
 
     // Fetch all users (excluding the current user)
-    const users = await User.find({}).select('name branch semester bio').lean();
+    const users = await User.find({}).select('name branch semester bio linkedinUrl githubUrl').lean();
     
     // Fetch all skills
     const skills = await Skill.find({}).select('user title description learntFrom resources').lean();

@@ -18,6 +18,16 @@ const userSchema = new mongoose.Schema({
     default:"",
     maxLength:150
   },
+    linkedinUrl: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    githubUrl: {
+      type: String,
+      default: "",
+      trim: true,
+    },
     password: {
       type: String,
       required: true,

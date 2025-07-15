@@ -13,6 +13,8 @@ const Login = () => {
   const [semester, setSemester] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [linkedinUrl, setLinkedinUrl] = useState('')
+  const [githubUrl, setGithubUrl] = useState('')
 
   const handleLogin = async (email, password) => {
     try {
@@ -33,14 +35,16 @@ const Login = () => {
     }
   }
 
-  const handleRegister = async (name,email,password,branch,semester) => {
+  const handleRegister = async (name,email,password,branch,semester,linkedinUrl,githubUrl) => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/user/register`, {
         name:name,
         email:email,
         password:password,
         branch:branch,
-        semester:semester
+        semester:semester,
+        linkedinUrl:linkedinUrl,
+        githubUrl:githubUrl
       })
       console.log(response.data, "registered successfully")
       setMode('Login')
@@ -49,6 +53,8 @@ const Login = () => {
       setSemester('')
       setEmail('')
       setPassword('')
+      setLinkedinUrl('')
+      setGithubUrl('')
     } catch (error) {
       console.error('Error registering:', error)
     }
@@ -63,9 +69,12 @@ const Login = () => {
   }
 
   return (
-    <div className='m-auto mt-24 w-full max-w-sm px-6 py-8 bg-white rounded-2xl shadow-lg flex flex-col gap-6 border border-2-[#252525]'>
+    <div className='m-auto mt-24 w-full max-w-md px-6 py-8 bg-white rounded-2xl shadow-xl flex flex-col gap-6 border border-gray-200'>
       <div className='text-center'>
-        <h1 className='text-3xl font-bold text-gray-900 tracking-tight'>Skillo</h1>
+        <div className='w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4'>
+          <span className='text-2xl font-bold text-white'>S</span>
+        </div>
+        <h1 className='text-2xl font-bold text-gray-900 tracking-tight'>Welcome to Skillo</h1>
         <p className='text-gray-500 mt-2 text-sm'>
           {mode === 'Login' ? 'Sign in to your account' : 'Register with email & password'}
         </p>
@@ -75,21 +84,21 @@ const Login = () => {
         {mode === 'Register' && (
           <>
             <div>
-              <label className='text-sm text-gray-700'>Name</label>
+              <label className='text-sm font-medium text-gray-700'>Name</label>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 type='text'
                 placeholder='Your full name'
-                className='mt-1 w-full px-3 py-2 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400'
+                className='mt-1 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
               />
             </div>
             <div>
-      <label className='text-sm text-gray-700'>Branch</label>
+      <label className='text-sm font-medium text-gray-700'>Branch</label>
       <select
         value={branch}
         onChange={(e) => setBranch(e.target.value)}
-        className='mt-1 w-full px-3 py-2 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400'
+        className='mt-1 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
       >
         <option value="">Select Branch</option>
         <option value="CSE">CSE</option>
@@ -105,11 +114,11 @@ const Login = () => {
       </select>
     </div>
     <div>
-      <label className='text-sm text-gray-700'>Semester</label>
+      <label className='text-sm font-medium text-gray-700'>Semester</label>
       <select
         value={semester}
         onChange={(e) => setSemester(e.target.value)}
-        className='mt-1 w-full px-3 py-2 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400'
+        className='mt-1 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
       >
         <option value="">Select Semester</option>
         <option value="I">I</option>
@@ -122,28 +131,48 @@ const Login = () => {
         <option value="VIII">VIII</option>
       </select>
     </div>
+            <div>
+              <label className='text-sm font-medium text-gray-700'>LinkedIn URL (Optional)</label>
+              <input
+                value={linkedinUrl}
+                onChange={(e) => setLinkedinUrl(e.target.value)}
+                type='url'
+                placeholder='https://linkedin.com/in/yourprofile'
+                className='mt-1 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+              />
+            </div>
+            <div>
+              <label className='text-sm font-medium text-gray-700'>GitHub URL (Optional)</label>
+              <input
+                value={githubUrl}
+                onChange={(e) => setGithubUrl(e.target.value)}
+                type='url'
+                placeholder='https://github.com/yourusername'
+                className='mt-1 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
+              />
+            </div>
           </>
         )}
 
         <div>
-          <label className='text-sm text-gray-700'>Email address</label>
+          <label className='text-sm font-medium text-gray-700'>Email address</label>
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type='email'
             placeholder='you@example.com'
-            className='mt-1 w-full px-3 py-2 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400'
+            className='mt-1 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
           />
         </div>
 
         <div>
-          <label className='text-sm text-gray-700'>Password</label>
+          <label className='text-sm font-medium text-gray-700'>Password</label>
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type='password'
             placeholder='••••••••'
-            className='mt-1 w-full px-3 py-2 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400'
+            className='mt-1 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition'
           />
         </div>
 
@@ -152,10 +181,10 @@ const Login = () => {
             if (mode === 'Login') {
               handleLogin(email, password)
             } else {
-              handleRegister(name, email, password, branch, semester)
+              handleRegister(name, email, password, branch, semester, linkedinUrl, githubUrl)
             }
           }}
-          className='bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold transition'
+          className='bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl'
         >
           {mode === 'Login' ? 'Sign In' : 'Register'}
         </button>
@@ -164,7 +193,7 @@ const Login = () => {
       <a
         onClick={handleModeSwitch}
         href='#'
-        className='text-sm text-center text-blue-600 hover:underline'
+        className='text-sm text-center text-blue-600 hover:text-blue-700 hover:underline transition'
       >
         {mode === 'Login' ? 'Register' : 'Login'}
       </a>

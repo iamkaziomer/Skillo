@@ -1,4 +1,5 @@
 import React from "react";
+import { Github, Linkedin, ExternalLink } from "lucide-react";
 
 const isValidUrl = (string) => {
   try {
@@ -24,60 +25,102 @@ const getFavicon = (url) => {
 const ProfileModal = ({ profile, onClose }) => {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/30"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[85vh] p-6 overflow-hidden"
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[85vh] p-8 overflow-hidden m-4"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-xl font-semibold">{profile.name}</h2>
-          <button onClick={onClose} className="text-xl font-semibold text-gray-500 hover:text-gray-800">
+        <div className="flex justify-between items-start mb-6">
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+              {profile.name?.charAt(0)}
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">{profile.name}</h2>
+              <p className="text-gray-600">{profile.branch} — Semester {profile.semester}</p>
+            </div>
+          </div>
+          <button onClick={onClose} className="text-2xl font-semibold text-gray-400 hover:text-gray-600 transition">
             ×
           </button>
         </div>
-        <p className="text-gray-600 text-sm mb-2">{profile.branch} — Semester {profile.semester}</p>
-        {profile.bio && <p className="text-gray-700 mb-4">{profile.bio}</p>}
+        
+        {profile.bio && <p className="text-gray-700 mb-6 leading-relaxed">{profile.bio}</p>}
+        
+        {/* Social Links */}
+        {(profile.linkedinUrl || profile.githubUrl) && (
+          <div className="flex gap-3 mb-6">
+            {profile.linkedinUrl && (
+              <a
+                href={profile.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm"
+              >
+                <Linkedin className="w-4 h-4" />
+                LinkedIn
+              </a>
+            )}
+            {profile.githubUrl && (
+              <a
+                href={profile.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition text-sm"
+              >
+                <Github className="w-4 h-4" />
+                GitHub
+              </a>
+            )}
+          </div>
+        )}
 
         {/* Scrollable content */}
         <div className="overflow-y-auto max-h-[65vh] pr-2">
-          <h3 className="text-lg font-medium mb-2">Skills</h3>
-          <ul className="space-y-4">
+          <h3 className="text-xl font-bold text-gray-900 mb-4">Skills & Expertise</h3>
+          <div className="space-y-4">
             {profile.skills.length === 0 ? (
-              <li className="text-gray-400">No skills added</li>
+              <div className="text-center py-8">
+                <p className="text-gray-400">No skills added yet</p>
+              </div>
             ) : (
               profile.skills.map((skill) => (
-                <li key={skill._id} className="border-b pb-2 border-gray-200">
-                  <p className="font-semibold text-gray-800">{skill.title}</p>
-                  {skill.description && <p className="text-gray-600 text-sm">{skill.description}</p>}
+                <div key={skill._id} className="border border-gray-200 rounded-xl p-4 bg-gradient-to-br from-white to-gray-50">
+                  <h4 className="font-semibold text-gray-800 text-lg mb-2">{skill.title}</h4>
+                  {skill.description && <p className="text-gray-600 mb-3">{skill.description}</p>}
+                  {skill.learntFrom && (
+                    <p className="text-sm text-gray-500 mb-3">
+                      <span className="font-medium">Learned from:</span> {skill.learntFrom}
+                    </p>
+                  )}
                   {skill.resources && skill.resources.length > 0 && (
-                    <div className="mt-1 text-xs text-gray-600">
-                      <h4 className="font-medium">Resources:</h4>
-                      <ul className="list-disc pl-5">
-                        
+                    <div className="mt-3">
+                      <h5 className="font-medium text-gray-700 mb-2 text-sm">Resources:</h5>
+                      <div className="space-y-2">
                         {skill.resources.map((resource, index) => (
-                          <li key={index} className="flex items-center gap-2 p-2 border border-2-[#232323] rounded-2xl">
+                          <a
+                            key={index}
+                            href={resource}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition text-sm group"
+                          >
                             {getFavicon(resource) && (
                               <img src={getFavicon(resource)} alt="favicon" className="w-4 h-4" />
                             )}
-                            <a
-                              href={resource}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-600 hover:underline break-all"
-                            >
-                              {resource}
-                            </a>
-                          </li>
+                            <span className="text-gray-700 truncate flex-1">{resource}</span>
+                            <ExternalLink className="w-3 h-3 text-gray-400 group-hover:text-gray-600" />
+                          </a>
                         ))}
-                      </ul>
+                      </div>
                     </div>
                   )}
-                </li>
+                </div>
               ))
             )}
-          </ul>
+          </div>
         </div>
       </div>
     </div>

@@ -19,14 +19,19 @@ const Navbar = () => {
 
   return (
     <div className="w-full flex items-center justify-between px-6 py-4 bg-white shadow-md fixed top-0 z-50">
-      <div className='text-2xl font-bold tracking-tight text-gray-800 cursor-pointer' onClick={() => navigate('/')}>Skillo</div>
+      <div className='flex items-center gap-3 cursor-pointer' onClick={() => navigate('/')}>
+        <div className='w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center'>
+          <span className='text-xl font-bold text-white'>S</span>
+        </div>
+        <span className='text-2xl font-bold tracking-tight text-gray-800'>Skillo</span>
+      </div>
 
       {/* Desktop Links */}
       <div className='hidden md:flex gap-6 text-sm font-medium text-gray-700'>
-        <a className='hover:text-black transition cursor-pointer' onClick={() => navigate('/')}>Home</a>
-        {!token && <a className='hover:text-black transition cursor-pointer' onClick={() => navigate('/login')}>Login</a>}
-        {token && <a className='hover:text-black transition cursor-pointer' onClick={() => navigate('/dashboard')}>Dashboard</a>}
-        <a className='hover:text-black transition cursor-pointer' onClick={() => navigate('/about')}>About</a>
+        <a className='hover:text-blue-600 transition cursor-pointer px-3 py-2 rounded-lg hover:bg-blue-50' onClick={() => navigate('/')}>Home</a>
+        {!token && <a className='hover:text-blue-600 transition cursor-pointer px-3 py-2 rounded-lg hover:bg-blue-50' onClick={() => navigate('/login')}>Login</a>}
+        {token && <a className='hover:text-blue-600 transition cursor-pointer px-3 py-2 rounded-lg hover:bg-blue-50' onClick={() => navigate('/dashboard')}>Dashboard</a>}
+        <a className='hover:text-blue-600 transition cursor-pointer px-3 py-2 rounded-lg hover:bg-blue-50' onClick={() => navigate('/about')}>About</a>
       </div>
 
       {/* Hamburger */}
